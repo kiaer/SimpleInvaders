@@ -1,15 +1,10 @@
 package Model;
 
-import View.View;
 
 public class Player extends GameObjects {
 
-	private View view;
-
-	public Player(View view, String ref, int x, int y) {
+	public Player(Game game, String ref, int x, int y) {
 		super(ref, x, y);
-
-		this.view = view;
 	}
 
 	public void collide(GameObjects other) {

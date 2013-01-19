@@ -49,6 +49,7 @@ public class Controller extends KeyAdapter {
 		return waitingForKeyPress;
 	}
 	
+	@SuppressWarnings("static-access")
 	public void setWaitingForKeyPress(boolean waitingForKeyPress) {
 		this.waitingForKeyPress = waitingForKeyPress;
 	}

@@ -1,19 +1,12 @@
 package spaceinvaders;
 
-import javax.swing.JFrame;
-
-import View.View;
-
-import View.View;
+import Model.Game;
 
 public class Spaceinvaders {
-	
-	public static void main(String []args){
-		
-		View view = new View();
-		view.loop();
-		
+
+	public static void main(String[] args) {
+
+		new Game();
+
 	}
-	
 }
-	

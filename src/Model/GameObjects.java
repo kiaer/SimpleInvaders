@@ -3,13 +3,15 @@ package Model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import View.View;
+import Controller.Constants;
+import View.Sprite;
+import View.SpriteStore;
 
 public class GameObjects {
 
 	protected int x;
 	protected int y;
-	private View view;
+	private Game game;
 	protected Sprite sprite;
 	protected double dy;
 	public double dx;
@@ -67,23 +69,32 @@ public class GameObjects {
 	public void invaderMove(long speed) {
 
 		this.dx = speed;
-		
-		
+
 		if (x >= 5 && x <= 750 && y > 5 && y < 600) {
 			x += dx;
-		}
-		if (x <= 5) {
+		} else if (x < 5) {
 			x = 5;
-			view.changeDirection();
-			y += 50;
 
-		}
-		if(x >= 750){
+		} else if (x > 750) {
 			x = 750;
-			view.changeDirection();
-			y += 50;
+
 		}
 
+	}
+
+	public void GroupInvaders(int dx) {
+		x += (dx);
+		System.out.println(dx);
+		for (int i = 0; i > 10; i = i + 5) {
+			if (x >= 5 && x <= 750 && y > 5 && y < 600) {
+				x += dx;
+			} else if (x < 5) {
+				x = 5;
+
+			} else if (x > 750) {
+				x = 750;
+			}
+		}
 	}
 
 	public boolean collided(GameObjects other) {
@@ -95,16 +106,16 @@ public class GameObjects {
 	}
 
 	public void doChange() {
-		dx *= (-1);
+		Constants.ALIEN_MOVE *= -1;
 		y = y + 25;
 	}
 
-	public View getView() {
-		return view;
+	public Game getView() {
+		return game;
 	}
 
-	public void setView(View view) {
-		this.view = view;
+	public void setView(Game view) {
+		this.game = view;
 	}
 
 }

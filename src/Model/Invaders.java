@@ -1,33 +1,30 @@
 package Model;
 
-import View.View;
 
 public class Invaders extends GameObjects {
 
-	private View view;
+	private Game game;
 
-	public Invaders(View view, String ref, int x, int y) {
+	public Invaders(Game game, String ref, int x, int y) {
 		super(ref, x, y);
 
-		this.view = view;
+		this.game = game;
 
 	}
 
-	public void invaderMove() {
+	public void invaderMove(long speed) {
 		
-		
-		
-		if (x <= 10) {
-
-			view.changeDirection();
+		if (x < 10) {
+			
+			game.changeDirection();
 
 		}
-		if (x >= 750) {
-
-			view.changeDirection();
+		if (x > 750) {
+			
+			game.changeDirection();
 		}
 
-		// proceed with normal move
+	// proceed with normal move
 
 		// super.changeDirection();
 	}
