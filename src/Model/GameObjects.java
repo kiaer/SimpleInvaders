@@ -54,11 +54,11 @@ public class GameObjects {
 	}
 
 	public void setHorizontalMovement(double dx) {
-		// System.out.println("x at start "+x);
+
 		if (x >= 5 && x <= 750) {
 			this.dx = dx;
 			x += (dx);
-			// System.out.println(x);
+
 		} else if (x < 5) {
 			x = 5;
 		} else if (x > 750) {
@@ -84,7 +84,7 @@ public class GameObjects {
 
 	public void GroupInvaders(int dx) {
 		x += (dx);
-		System.out.println(dx);
+
 		for (int i = 0; i > 10; i = i + 5) {
 			if (x >= 5 && x <= 750 && y > 5 && y < 600) {
 				x += dx;

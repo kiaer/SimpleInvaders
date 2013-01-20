@@ -28,7 +28,10 @@ public class Game extends Canvas {
 
 			initializeObjects();
 			loop();
-
+			
+			invaderCount = 5 * 12;
+			startCount = 5 * 12;
+			
 			try {
 				Thread.sleep(10);
 			} catch (Exception e) {
@@ -92,12 +95,12 @@ public class Game extends Canvas {
 				} else {
 					Controller.firePressed = false;
 				}
-				// System.out.println("fire");
+				
 			}
 
-			// System.out.println(invaderCount);
+			
 			if (changeRequired == true) {
-				System.out.println(changeRequired);
+				
 
 				for (int i = 1; i < Objects.size(); i++) {
 					GameObjects objects = (GameObjects) Objects.get(i);
@@ -121,13 +124,13 @@ public class Game extends Canvas {
 
 			// this.revalidate();
 
+		
 			if (invaderCount == 0) {
-
+				
+			
 				Objects.removeAll(Objects);
-
-				if (Controller.firePressed) {
-					break;
-				}
+				
+				break;
 
 			}
 			try {
