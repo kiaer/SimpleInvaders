@@ -17,6 +17,7 @@ import Controller.Controller;
 public class Game extends Canvas {
 
 	protected static ArrayList<GameObjects> Objects = new ArrayList<GameObjects>();
+	protected ArrayList<GameObjects> Invader = new ArrayList<GameObjects>();
 	private ArrayList<Object> DeadObjects = new ArrayList<Object>();
 	public static BufferStrategy strategy;
 	protected static GameObjects invader;
@@ -24,6 +25,7 @@ public class Game extends Canvas {
 	private int invaderCount = 10 * 3;
 	private boolean gameRunning = true;
 	private boolean changeRequired = false;
+	private double lastFire;
 
 	public Game() {
 
@@ -54,6 +56,7 @@ public class Game extends Canvas {
 				invader = new Invaders(this, "sprites/alien.png",
 						50 + (j * 50), 10 + (i * 50));
 				Objects.add(invader);
+				Invader.add(invader);
 			}
 		}
 
@@ -97,29 +100,9 @@ public class Game extends Canvas {
 
 			}
 			if (Controller.firePressed) {
-				if (Check.hit(ship.getX(), Check.checkInvaderX(ship.getX()))) {
-					removeObject(Check.rightInvader(ship.getX()));
-					for (int i = 1; i <= Objects.size() - 1; i++) {
-						GameObjects objects = (GameObjects) Objects.get(i);
 
-						objects.GroupInvaders(Constants.ALIEN_MOVE);
-						objects.invaderMove(Constants.ALIEN_MOVE);
-
-					}
-					Controller.firePressed = false;
-
-				} else {
-
-					for (int i = 1; i <= Objects.size() - 1; i++) {
-						GameObjects objects = (GameObjects) Objects.get(i);
-
-						objects.GroupInvaders(Constants.ALIEN_MOVE);
-						objects.invaderMove(Constants.ALIEN_MOVE);
-
-					}
-
-					Controller.firePressed = false;
-				}
+				fire();
+				Controller.firePressed = false;
 
 			}
 
@@ -163,5 +146,33 @@ public class Game extends Canvas {
 	public void changeDirection() {
 		changeRequired = true;
 
+	}
+
+	public void fire() {
+		if (System.currentTimeMillis() - lastFire < 300) {
+			return;
+		}
+		lastFire = System.currentTimeMillis();
+		if (Check.hit(ship.getX(), Check.checkInvaderX(ship.getX()))) {
+			removeObject(Check.rightInvader(ship.getX()));
+			for (int i = 1; i <= Objects.size() - 1; i++) {
+				GameObjects objects = (GameObjects) Objects.get(i);
+
+				objects.GroupInvaders(Constants.ALIEN_MOVE);
+				objects.invaderMove(Constants.ALIEN_MOVE);
+
+			}
+		} else {
+
+			for (int i = 1; i <= Objects.size() - 1; i++) {
+				GameObjects objects = (GameObjects) Objects.get(i);
+
+				objects.GroupInvaders(Constants.ALIEN_MOVE);
+				objects.invaderMove(Constants.ALIEN_MOVE);
+
+			}
+
+			Controller.firePressed = false;
+		}
 	}
 }
