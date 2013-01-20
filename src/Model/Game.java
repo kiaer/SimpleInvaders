@@ -48,7 +48,7 @@ public class Game extends Canvas {
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 12; j++) {
-				invader = new Invaders(this, "sprites/alien.gif",
+				invader = new Invaders(this, "sprites/alien.png",
 						100 + (j * 50), 10 + (i * 50));
 				Objects.add(invader);
 			}
