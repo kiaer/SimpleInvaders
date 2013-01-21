@@ -107,7 +107,7 @@ public class GameObjects {
 
 	public void doChange() {
 		Constants.ALIEN_MOVE *= -1;
-		y = y + 25;
+		y = y + 50;
 	}
 
 	public Game getView() {

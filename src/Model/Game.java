@@ -8,6 +8,11 @@ import View.GameFrame;
 import Controller.Constants;
 import Controller.Controller;
 
+//Class to run the game. Contains gameloops and objects. 
+//Calls every other class for methods. 
+//The game is mainly played through this class. 
+//This class also alters everything in the model.
+
 @SuppressWarnings("serial")
 public class Game extends Canvas {
 
@@ -16,8 +21,7 @@ public class Game extends Canvas {
 	public static BufferStrategy strategy;
 	protected static GameObjects invader;
 	private GameObjects ship;
-	private int invaderCount = 5 * 12;
-	private int startCount = 5 * 12;
+	private int invaderCount = 10 * 3;
 	private boolean gameRunning = true;
 	private boolean changeRequired = false;
 
@@ -28,10 +32,9 @@ public class Game extends Canvas {
 
 			initializeObjects();
 			loop();
-			
-			invaderCount = 5 * 12;
-			startCount = 5 * 12;
-			
+
+			invaderCount = 10 * 3;
+
 			try {
 				Thread.sleep(10);
 			} catch (Exception e) {
@@ -46,10 +49,10 @@ public class Game extends Canvas {
 
 		Objects.add(ship);
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 12; j++) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
 				invader = new Invaders(this, "sprites/alien.png",
-						100 + (j * 50), 10 + (i * 50));
+						50 + (j * 50), 10 + (i * 50));
 				Objects.add(invader);
 			}
 		}
@@ -77,6 +80,13 @@ public class Game extends Canvas {
 
 			}
 
+			for (int p = 1; p < Objects.size(); p++) {
+				if (Objects.get(p).getY() <= Objects.get(0).getY()) {
+					break;
+
+				}
+			}
+
 			ship.setHorizontalMovement(0);
 
 			if ((Controller.rightPressed) && (!Controller.leftPressed)) {
@@ -89,18 +99,31 @@ public class Game extends Canvas {
 			if (Controller.firePressed) {
 				if (Check.hit(ship.getX(), Check.checkInvaderX(ship.getX()))) {
 					removeObject(Check.rightInvader(ship.getX()));
+					for (int i = 1; i <= Objects.size() - 1; i++) {
+						GameObjects objects = (GameObjects) Objects.get(i);
 
+						objects.GroupInvaders(Constants.ALIEN_MOVE);
+						objects.invaderMove(Constants.ALIEN_MOVE);
+
+					}
 					Controller.firePressed = false;
 
 				} else {
+
+					for (int i = 1; i <= Objects.size() - 1; i++) {
+						GameObjects objects = (GameObjects) Objects.get(i);
+
+						objects.GroupInvaders(Constants.ALIEN_MOVE);
+						objects.invaderMove(Constants.ALIEN_MOVE);
+
+					}
+
 					Controller.firePressed = false;
 				}
-				
+
 			}
 
-			
-			if (changeRequired == true) {
-				
+			if (changeRequired) {
 
 				for (int i = 1; i < Objects.size(); i++) {
 					GameObjects objects = (GameObjects) Objects.get(i);
@@ -110,26 +133,10 @@ public class Game extends Canvas {
 				changeRequired = false;
 			}
 
-			if (startCount != invaderCount) {
-				for (int i = 1; i <= Objects.size() - 1; i++) {
-					GameObjects objects = (GameObjects) Objects.get(i);
-
-					objects.GroupInvaders(Constants.ALIEN_MOVE);
-					objects.invaderMove(Constants.ALIEN_MOVE);
-
-				}
-
-				startCount--;
-			}
-
-			// this.revalidate();
-
-		
 			if (invaderCount == 0) {
-				
-			
+
 				Objects.removeAll(Objects);
-				
+
 				break;
 
 			}

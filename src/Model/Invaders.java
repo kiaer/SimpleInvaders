@@ -15,12 +15,12 @@ public class Invaders extends GameObjects {
 	public void invaderMove(long speed) {
 		
 		if (x < 10) {
-			
+			x = 5;
 			game.changeDirection();
 
 		}
 		if (x > 750) {
-			
+			x = 750;
 			game.changeDirection();
 		}
 
